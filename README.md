@@ -1,2 +1,2 @@
-# Rock-Paper-Scissors-C
+# Rock-Paper-Scissors-c
 A Rock Paper Scissors game written in C
