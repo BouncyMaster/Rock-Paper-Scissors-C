@@ -1,12 +1,27 @@
-#include <stdio.h> // puts() NULL
+#include <stdio.h> // puts() NULL printf() scanf() fopen()
 #include <strings.h> // strcasecmp()
 #include <time.h> // time()
 #include <stdlib.h> // srand() rand()
-#include <unistd.h> // sleep()
+#include <unistd.h> // sleep() access()
 
 int main() {
-  char pinput[8];
+  char pinput[8], data[255];
   int player, computer;
+  FILE *fp;
+
+  // If there is a file named "data" in the process folder,
+  // and if we have read and write permissions for it.
+  if (access("./data", R_OK|W_OK) != -1) { // TODO: implement more ifs with different errors if file has read but no write permission etc.
+    fp = fopen("./data", "r");
+    fgets(data, 255, (FILE*)fp);
+    fclose(fp);
+
+    puts(data);
+  } else {
+    fp = fopen("./data", "w+");
+    fputs("{'wins': 0, 'loses': 0, 'draws': 0}", fp);
+    fclose(fp);
+  }
 
   printf("Choose Rock, Paper or Scissors:");
   scanf("%8s", pinput);
