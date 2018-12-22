@@ -1,12 +1,13 @@
 #include <stdio.h> // puts() NULL printf() scanf() fopen()
 #include <strings.h> // strcasecmp()
+#include <string.h> // strchr()
 #include <time.h> // time()
 #include <stdlib.h> // srand() rand()
 #include <unistd.h> // sleep() access()
 
 int main() {
-  char pinput[8], data[255];
-  int player, computer;
+  char pinput[8], data[255], *e;
+  int player, computer, wins, loses, draws, index;
   FILE *fp;
 
   // If there is a file named "data" in the process folder,
@@ -15,11 +16,15 @@ int main() {
     fp = fopen("./data", "r");
     fgets(data, 255, (FILE*)fp);
     fclose(fp);
-    puts(data);
+
+    e = strchr(data, 'w');
+    index = (int)(e - data);
+    printf("%d\n", index);
   } else {
     fp = fopen("./data", "w+");
-    fputs("{'wins': 0, 'loses': 0, 'draws': 0}", fp);
+    fputs("w=0 l=0 d=0", fp);
     fclose(fp);
+    wins = 0; loses = 0; draws = 0;
   }
 
   printf("Choose Rock, Paper or Scissors:");
@@ -38,7 +43,7 @@ int main() {
   }
 
   else if ((strcasecmp(pinput, "scissors") == 0) ||
-          (strcasecmp(pinput, "s") == 0)) {
+           (strcasecmp(pinput, "s") == 0)) {
     puts("You have chosen Scissors");
     player = 3;
   }
@@ -55,7 +60,7 @@ int main() {
   if (computer == 1)
     puts("Computer has chosen Rock");
   else if (computer == 2)
-    puts("Comp0uter has chosen Paper");
+    puts("Computer has chosen Paper");
   else
     puts("Computer has chosen Scissors");
 
