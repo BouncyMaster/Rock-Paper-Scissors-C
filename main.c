@@ -6,20 +6,30 @@
 #include <unistd.h> // sleep() access()
 
 int main() {
-  char pinput[8], data[255], *e;
-  int player, computer, wins, loses, draws, index;
+  char pinput[8], data[255], *e, cwins;
+  int player, computer, wins, loses, draws, lindex, dindex;
   FILE *fp;
 
   // If there is a file named "data" in the process folder,
   // and if we have read and write permissions for it.
   if (access("./data", R_OK|W_OK) != -1) { // TODO: implement more ifs with different errors if file has read but no write permission etc.
+
     fp = fopen("./data", "r");
     fgets(data, 255, (FILE*)fp);
     fclose(fp);
 
-    e = strchr(data, 'w');
-    index = (int)(e - data);
-    printf("%d\n", index);
+
+    e = strchr(data, 'l');
+    lindex = (int)(e - data);
+    printf("%d\n", lindex);
+
+    e = strchr(data, 'd');
+    dindex = (int)(e - data);
+    printf("%d\n", dindex);
+
+
+    //strncpy(cwins, data+2, 5); // invalid conversion from ‘char’ to ‘char*’ [-fpermissive]
+
   } else {
     fp = fopen("./data", "w+");
     fputs("w=0 l=0 d=0", fp);
