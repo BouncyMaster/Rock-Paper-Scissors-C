@@ -15,7 +15,6 @@ int main() {
     fp = fopen("./data", "r");
     fgets(data, 255, (FILE*)fp);
     fclose(fp);
-
     puts(data);
   } else {
     fp = fopen("./data", "w+");
@@ -56,23 +55,23 @@ int main() {
   if (computer == 1)
     puts("Computer has chosen Rock");
   else if (computer == 2)
-    puts("Computer has chosen Paper");
+    puts("Comp0uter has chosen Paper");
   else
     puts("Computer has chosen Scissors");
 
   if (player == computer) {
     puts("It's a draw!");
-  } else if ((player == 1) || (computer == 2)) {
+  } else if ((player == 1) && (computer == 2)) {
     puts("Computer has won!");
-  } else if ((player == 1) || (computer == 3)) {
+  } else if ((player == 1) && (computer == 3)) {
     puts("You have won!");
-  } else if ((player == 2) || (computer == 1)) {
+  } else if ((player == 2) && (computer == 1)) {
     puts("You have won!");
-  } else if ((player == 3) || (computer == 1)) {
+  } else if ((player == 3) && (computer == 1)) {
     puts("Computer has won!");
-  } else if ((player == 2) || (computer == 3)) {
+  } else if ((player == 2) && (computer == 3)) {
     puts("Computer has won!");
-  } else if ((player == 3) || (computer == 2)) {
+  } else if ((player == 3) && (computer == 2)) {
     puts("You have won!");
   }
 }
