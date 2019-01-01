@@ -1,17 +1,17 @@
-#include <stdio.h> // puts() NULL printf() scanf() fopen()
+#include <stdio.h> // puts() NULL printf() scanf() fopen() fgets() fclose()
 #include <strings.h> // strcasecmp()
-#include <string.h> // strchr()
+#include <string.h> // strchr() strlen()
 #include <time.h> // time()
-#include <stdlib.h> // srand() rand()
+#include <stdlib.h> // srand() rand() atoi()
 #include <unistd.h> // sleep() access()
 
 int main() {
 
-  char pInput[8], data[255], *e, pWins[250], pLoses[250], pDraws[250];
-  int player, computer, wins, loses, draws, lindex, dindex;
+  char pInput[8], data[255], chWins[255], chLoses[255], chDraws[255], *e;
+  int player, computer, wins, loses, draws, lIndex, dIndex;
   FILE *fp;
 
-  // If there is a file named "data" in the process folder,
+  // If there is a file named "data" in the process folder
   // and if we have read and write permissions for it.
   if (access("./data", R_OK|W_OK) != -1) { // TODO: implement more ifs with different errors if file has read but no write permission etc.
 
@@ -20,21 +20,27 @@ int main() {
     fclose(fp);
 
     e = strchr(data, 'l'); // Find the index of 'l' in char data
-    lindex = (int)(e - data);
+    lIndex = (int)(e - data);
 
     e = strchr(data, 'd'); // Find the index of 'd' in char data
-    dindex = (int)(e - data);
+    dIndex = (int)(e - data);
 
-    strncpy(pWins, data+1, lindex-1); // Copy a part of the char data
-                                      // To char cwins
 
-    puts(pWins);
+    strncpy(chWins, data + 1, lIndex - 1); // Copy the part of the char data
+                                           // Which says the amount of wins
+    strncpy(chLoses, (data + lIndex + 1), (dIndex - lIndex) - 1);
+    strncpy(chDraws, (data + dIndex + 1), (strlen(data) - dIndex) - 2);
+
+    // ASCII To Int
+    wins = atoi(chWins); loses = atoi(chLoses); draws = atoi(chDraws);
 
   } else {
+
     fp = fopen("./data", "w+");
     fputs("w0l0d0", fp);
     fclose(fp);
     wins = 0; loses = 0; draws = 0;
+
   }
 
   printf("Choose Rock, Paper or Scissors:");
