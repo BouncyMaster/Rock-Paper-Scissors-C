@@ -1,4 +1,5 @@
 #include <stdio.h> // puts() NULL printf() scanf() fopen() fgets() fclose()
+                   // fprintf()
 #include <strings.h> // strcasecmp()
 #include <string.h> // strchr() strlen()
 #include <time.h> // time()
@@ -24,7 +25,6 @@ int main() {
 
     e = strchr(data, 'd'); // Find the index of 'd' in char data
     dIndex = (int)(e - data);
-
 
     strncpy(chWins, data + 1, lIndex - 1); // Copy the part of the char data
                                            // Which says the amount of wins
@@ -82,17 +82,29 @@ int main() {
 
   if (player == computer) {
     puts("It's a draw!");
+    draws++;
   } else if ((player == 1) && (computer == 2)) {
     puts("Computer has won!");
+    loses++;
   } else if ((player == 1) && (computer == 3)) {
     puts("You have won!");
+    wins++;
   } else if ((player == 2) && (computer == 1)) {
     puts("You have won!");
+    wins++;
   } else if ((player == 3) && (computer == 1)) {
     puts("Computer has won!");
+    loses++;
   } else if ((player == 2) && (computer == 3)) {
     puts("Computer has won!");
+    loses++;
   } else if ((player == 3) && (computer == 2)) {
     puts("You have won!");
+    wins++;
   }
+
+  fp = fopen("./data", "w+");
+  fprintf(fp, "w%dl%dd%d\n", wins, loses, draws);
+  fclose(fp);
+
 }
