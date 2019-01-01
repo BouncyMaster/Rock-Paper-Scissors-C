@@ -107,4 +107,14 @@ int main() {
   fprintf(fp, "w%dl%dd%d\n", wins, loses, draws);
   fclose(fp);
 
+  printf("\n"
+"=========================\n"
+"You have %d total wins\n"
+"You have %d total loses\n"
+"You have %d total draws\n"
+"\n"
+"You have played %d times\n"
+"=========================\n"
+  , wins, loses, draws, wins+loses+draws);
+
 }
