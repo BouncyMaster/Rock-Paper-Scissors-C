@@ -5,23 +5,16 @@
 #include <time.h> // time()
 #include <stdlib.h> // srand() rand() atoi()
 #include <unistd.h> // sleep() access()
+#include <assert.h>
 
 // Function declaration
-void game(void);
+void game(int* wins, int* loses, int* draws);
 
 int main(void) {
 
   char data[255], chWins[255], chLoses[255], chDraws[255], *e;
+  int lIndex, dIndex, wins, loses, draws;
   FILE *fp;
-
-  game();
-
-}
-
-void game(void) {
-
-  char pInput[8];
-  int player, computer, wins, loses, draws, lIndex, dIndex;
 
   // If there is a file named "data" in the process folder
   // and if we have read and write permissions for it.
@@ -54,29 +47,63 @@ void game(void) {
 
   }
 
-  printf("Choose Rock, Paper or Scissors:");
-  scanf("%8s", pInput);
+  game(&wins, &loses, &draws);
 
-  if ((strcasecmp(pInput, "rock") == 0) ||
-      (strcasecmp(pInput, "r") == 0)) {
-    puts("You have chosen Rock");
-    player = 1;
+  printf("\n"
+"=========================\n"
+"You have %d total wins\n"
+"You have %d total loses\n"
+"You have %d total draws\n"
+"\n"
+"You have played %d times\n"
+"=========================\n"
+  , wins, loses, draws, wins+loses+draws);
+
+  fp = fopen("./data", "w+");
+  fprintf(fp, "w%dl%dd%d\n", wins, loses, draws);
+  fclose(fp);
+
+}
+
+void game(int* wins, int* loses, int* draws) {
+
+  // Check that these are not pointing to NULL
+  assert(wins); assert(loses); assert(draws);
+
+  char pInput[8];
+  int player, computer;
+
+  while (true) {
+
+    printf("Choose Rock, Paper or Scissors:");
+    scanf("%8s", pInput);
+
+    if ((strcasecmp(pInput, "rock") == 0) ||
+        (strcasecmp(pInput, "r") == 0)) {
+      puts("You have chosen Rock");
+      player = 1;
+      break;
+    }
+
+    else if ((strcasecmp(pInput, "paper") == 0) ||
+             (strcasecmp(pInput, "p") == 0)) {
+      puts("You have chosen Paper");
+      player = 2;
+      break;
+    }
+
+    else if ((strcasecmp(pInput, "scissors") == 0) ||
+             (strcasecmp(pInput, "s") == 0)) {
+      puts("You have chosen Scissors");
+      player = 3;
+      break;
+    }
+
+    else {
+      puts("Error: Incorrect Input");
+      continue;
+    }
   }
-
-  else if ((strcasecmp(pInput, "paper") == 0) ||
-           (strcasecmp(pInput, "p") == 0)) {
-    puts("You have chosen Paper");
-    player = 2;
-  }
-
-  else if ((strcasecmp(pInput, "scissors") == 0) ||
-           (strcasecmp(pInput, "s") == 0)) {
-    puts("You have chosen Scissors");
-    player = 3;
-  }
-
-  else
-    puts("Error: Incorrect Input");
 
   sleep(1);
 
@@ -84,6 +111,7 @@ void game(void) {
   srand(time(NULL));
   // random integer 1-3
   computer = rand() % 3 + 1;
+
   if (computer == 1)
     puts("Computer has chosen Rock");
   else if (computer == 2)
@@ -113,19 +141,4 @@ void game(void) {
     puts("You have won!");
     wins++;
   }
-
-  fp = fopen("./data", "w+");
-  fprintf(fp, "w%dl%dd%d\n", wins, loses, draws);
-  fclose(fp);
-
-  printf("\n"
-"=========================\n"
-"You have %d total wins\n"
-"You have %d total loses\n"
-"You have %d total draws\n"
-"\n"
-"You have played %d times\n"
-"=========================\n"
-  , wins, loses, draws, wins+loses+draws);
-
 }
