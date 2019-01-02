@@ -6,7 +6,7 @@
 #include <stdlib.h> // srand() rand() atoi()
 #include <unistd.h> // sleep() access()
 
-int main() {
+int main(void) {
 
   char pInput[8], data[255], chWins[255], chLoses[255], chDraws[255], *e;
   int player, computer, wins, loses, draws, lIndex, dIndex;
