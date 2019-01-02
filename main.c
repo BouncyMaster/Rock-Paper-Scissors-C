@@ -6,11 +6,22 @@
 #include <stdlib.h> // srand() rand() atoi()
 #include <unistd.h> // sleep() access()
 
+// Function declaration
+void game(void);
+
 int main(void) {
 
-  char pInput[8], data[255], chWins[255], chLoses[255], chDraws[255], *e;
-  int player, computer, wins, loses, draws, lIndex, dIndex;
+  char data[255], chWins[255], chLoses[255], chDraws[255], *e;
   FILE *fp;
+
+  game();
+
+}
+
+void game(void) {
+
+  char pInput[8];
+  int player, computer, wins, loses, draws, lIndex, dIndex;
 
   // If there is a file named "data" in the process folder
   // and if we have read and write permissions for it.
