@@ -6,13 +6,10 @@
 #include <stdlib.h> // srand() rand() atoi()
 #include <unistd.h> // sleep() access()
 
-// Function declaration
-void game(int* wins, int* loses, int* draws);
-
 int main(void) {
 
-  char data[255], chWins[255], chLoses[255], chDraws[255], *e;
-  int lIndex, dIndex, wins, loses, draws;
+  char data[255], chWins[255], chLoses[255], chDraws[255], pInput[8], *e;
+  int lIndex, dIndex, wins, loses, draws, player, computer;
   FILE *fp;
 
   // If there is a file named "data" in the process folder
@@ -46,30 +43,7 @@ int main(void) {
 
   }
 
-  game(&wins, &loses, &draws);
-
-  printf("\n"
-"=========================\n"
-"You have %d total wins\n"
-"You have %d total loses\n"
-"You have %d total draws\n"
-"\n"
-"You have played %d times\n"
-"=========================\n"
-  , wins, loses, draws, wins+loses+draws);
-
-  fp = fopen("./data", "w+");
-  fprintf(fp, "w%dl%dd%d\n", wins, loses, draws);
-  fclose(fp);
-
-}
-
-void game(int* wins, int* loses, int* draws) {
-
-  char pInput[8];
-  int player, computer;
-
-  while (true) {
+  while (1) {
 
     printf("Choose Rock, Paper or Scissors:");
     scanf("%8s", pInput);
@@ -137,4 +111,19 @@ void game(int* wins, int* loses, int* draws) {
     puts("You have won!");
     wins++;
   }
+
+  printf("\n"
+"=========================\n"
+"You have %d total wins\n"
+"You have %d total loses\n"
+"You have %d total draws\n"
+"\n"
+"You have played %d times\n"
+"=========================\n"
+  , wins, loses, draws, wins+loses+draws);
+
+  fp = fopen("./data", "w+");
+  fprintf(fp, "w%dl%dd%d\n", wins, loses, draws);
+  fclose(fp);
+
 }
