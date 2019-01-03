@@ -5,7 +5,6 @@
 #include <time.h> // time()
 #include <stdlib.h> // srand() rand() atoi()
 #include <unistd.h> // sleep() access()
-#include <assert.h>
 
 // Function declaration
 void game(int* wins, int* loses, int* draws);
@@ -66,9 +65,6 @@ int main(void) {
 }
 
 void game(int* wins, int* loses, int* draws) {
-
-  // Check that these are not pointing to NULL
-  assert(wins); assert(loses); assert(draws);
 
   char pInput[8];
   int player, computer;
