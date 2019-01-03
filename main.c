@@ -6,7 +6,18 @@
 #include <stdlib.h> // srand() rand() atoi()
 #include <unistd.h> // sleep() access()
 
+// Funcion declaration
+void game(void);
+void plAgain(void);
+
 int main(void) {
+
+  game();
+  plAgain();
+
+}
+
+void game(void) {
 
   char data[255], chWins[255], chLoses[255], chDraws[255], pInput[8], *e;
   int lIndex, dIndex, wins, loses, draws, player, computer;
@@ -37,7 +48,7 @@ int main(void) {
   } else {
 
     fp = fopen("./data", "w+");
-    fputs("w0l0d0", fp);
+      fputs("w0l0d0", fp);
     fclose(fp);
     wins = 0; loses = 0; draws = 0;
 
@@ -45,8 +56,9 @@ int main(void) {
 
   while (1) {
 
-    printf("Choose Rock, Paper or Scissors:");
+    printf("\nChoose Rock, Paper or Scissors:");
     scanf("%8s", pInput);
+    puts("\n");
 
     if ((strcasecmp(pInput, "rock") == 0) ||
         (strcasecmp(pInput, "r") == 0)) {
@@ -123,7 +135,47 @@ int main(void) {
   , wins, loses, draws, wins+loses+draws);
 
   fp = fopen("./data", "w+");
-  fprintf(fp, "w%dl%dd%d\n", wins, loses, draws);
+    fprintf(fp, "w%dl%dd%d\n", wins, loses, draws);
   fclose(fp);
 
+}
+
+void plAgain(void) {
+
+  char again[5];
+
+  while (1) {
+
+    printf("\n"
+"Type 'Yes' or 'No' if you either want to play again or close the program or\n"
+"'Reset' to reset your score and close the program:");
+
+    scanf("%5s", again);
+
+    if ((strcasecmp(again, "yes") == 0) ||
+        (strcasecmp(again, "y") == 0)) {
+      game();
+      continue;
+    }
+
+    else if ((strcasecmp(again, "no") == 0) ||
+             (strcasecmp(again, "n") == 0)) {
+      break;
+    }
+
+    else if ((strcasecmp(again, "reset") == 0) ||
+             (strcasecmp(again, "r") == 0)) {
+      FILE *fp;
+
+      fp = fopen("./data", "w+");
+        fputs("w0l0d0", fp);
+      fclose(fp);
+      break;
+    }
+
+    else {
+      puts("Error:Incorrect Input");
+      continue;
+    }
+  }
 }
