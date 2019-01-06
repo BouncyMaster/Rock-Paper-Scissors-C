@@ -6,9 +6,10 @@
 #include <stdlib.h> // srand() rand() atoi()
 #include <unistd.h> // sleep() access()
 
-// Funcion declaration
+// Function declaration
 void game(void);
 void plAgain(void);
+
 
 int main(void) {
 
