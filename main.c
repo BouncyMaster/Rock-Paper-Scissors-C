@@ -25,7 +25,7 @@ void game(void) {
   FILE *fp;
 
   // If there is a file named "data" in the process folder
-  // and if we have read and write permissions for it.
+  // and if we have write permissions for it.
   if (access("./data", R_OK|W_OK) != -1) { // TODO: implement more ifs with different errors if file has read but no write permission etc.
 
     fp = fopen("./data", "r");
